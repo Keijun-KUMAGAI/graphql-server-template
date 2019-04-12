@@ -1,0 +1,6 @@
+endpoint: https://us1.prisma.sh/keijun-kumagai-56a199/api/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: go-client
+    output: ./prisma/
