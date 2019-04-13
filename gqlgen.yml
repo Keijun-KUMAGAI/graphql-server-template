@@ -6,14 +6,14 @@
 schema:
 - schema.graphql
 exec:
-  filename: ./graphql/exec.go
+  filename: ./gqlgen/exec.go
 model:
-  filename: ./models/model_gen.go
+  filename: ./gqlgen/model_gen.go
 models:
   Todo:
-    model: github.com/Keijun-KUMAGAI/graphql-server/prisma.Todo
+    model: github.com/Keijun-KUMAGAI/graphql-server/prisma-client.Todo
   User:
-    model: github.com/Keijun-KUMAGAI/graphql-server/prisma.User
+    model: github.com/Keijun-KUMAGAI/graphql-server/prisma-client.User
 resolver:
   filename: ./resolvers/root_resolver.go
   type: Resolver

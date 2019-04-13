@@ -376,30 +376,148 @@ const (
 	MutationTypeDeleted MutationType = "DELETED"
 )
 
-type TodoUpdateManyMutationInput struct {
-	Message *string `json:"message,omitempty"`
-	Done    *bool   `json:"done,omitempty"`
-}
-
-type TodoCreateInput struct {
-	Message string             `json:"message"`
-	Done    *bool              `json:"done,omitempty"`
-	User    UserCreateOneInput `json:"user"`
-}
-
-type UserUpdateOneRequiredInput struct {
-	Create  *UserCreateInput       `json:"create,omitempty"`
-	Update  *UserUpdateDataInput   `json:"update,omitempty"`
-	Upsert  *UserUpsertNestedInput `json:"upsert,omitempty"`
-	Connect *UserWhereUniqueInput  `json:"connect,omitempty"`
+type UserUpdateOneRequiredWithoutTodosInput struct {
+	Create  *UserCreateWithoutTodosInput     `json:"create,omitempty"`
+	Update  *UserUpdateWithoutTodosDataInput `json:"update,omitempty"`
+	Upsert  *UserUpsertWithoutTodosInput     `json:"upsert,omitempty"`
+	Connect *UserWhereUniqueInput            `json:"connect,omitempty"`
 }
 
 type TodoWhereUniqueInput struct {
 	ID *string `json:"id,omitempty"`
 }
 
+type TodoUpdateManyWithoutUserInput struct {
+	Create     []TodoCreateWithoutUserInput                `json:"create,omitempty"`
+	Delete     []TodoWhereUniqueInput                      `json:"delete,omitempty"`
+	Connect    []TodoWhereUniqueInput                      `json:"connect,omitempty"`
+	Set        []TodoWhereUniqueInput                      `json:"set,omitempty"`
+	Disconnect []TodoWhereUniqueInput                      `json:"disconnect,omitempty"`
+	Update     []TodoUpdateWithWhereUniqueWithoutUserInput `json:"update,omitempty"`
+	Upsert     []TodoUpsertWithWhereUniqueWithoutUserInput `json:"upsert,omitempty"`
+	DeleteMany []TodoScalarWhereInput                      `json:"deleteMany,omitempty"`
+	UpdateMany []TodoUpdateManyWithWhereNestedInput        `json:"updateMany,omitempty"`
+}
+
+type UserCreateInput struct {
+	Name  string                          `json:"name"`
+	Todos *TodoCreateManyWithoutUserInput `json:"todos,omitempty"`
+}
+
+type TodoUpdateManyMutationInput struct {
+	Message *string `json:"message,omitempty"`
+	Done    *bool   `json:"done,omitempty"`
+}
+
+type UserSubscriptionWhereInput struct {
+	MutationIn                 []MutationType               `json:"mutation_in,omitempty"`
+	UpdatedFieldsContains      *string                      `json:"updatedFields_contains,omitempty"`
+	UpdatedFieldsContainsEvery []string                     `json:"updatedFields_contains_every,omitempty"`
+	UpdatedFieldsContainsSome  []string                     `json:"updatedFields_contains_some,omitempty"`
+	Node                       *UserWhereInput              `json:"node,omitempty"`
+	And                        []UserSubscriptionWhereInput `json:"AND,omitempty"`
+	Or                         []UserSubscriptionWhereInput `json:"OR,omitempty"`
+	Not                        []UserSubscriptionWhereInput `json:"NOT,omitempty"`
+}
+
+type TodoCreateInput struct {
+	Message string                         `json:"message"`
+	Done    *bool                          `json:"done,omitempty"`
+	User    UserCreateOneWithoutTodosInput `json:"user"`
+}
+
+type UserUpdateManyMutationInput struct {
+	Name *string `json:"name,omitempty"`
+}
+
+type UserCreateOneWithoutTodosInput struct {
+	Create  *UserCreateWithoutTodosInput `json:"create,omitempty"`
+	Connect *UserWhereUniqueInput        `json:"connect,omitempty"`
+}
+
+type TodoUpdateManyWithWhereNestedInput struct {
+	Where TodoScalarWhereInput    `json:"where"`
+	Data  TodoUpdateManyDataInput `json:"data"`
+}
+
+type UserCreateWithoutTodosInput struct {
+	Name string `json:"name"`
+}
+
 type UserWhereUniqueInput struct {
 	ID *string `json:"id,omitempty"`
+}
+
+type TodoUpdateInput struct {
+	Message *string                                 `json:"message,omitempty"`
+	Done    *bool                                   `json:"done,omitempty"`
+	User    *UserUpdateOneRequiredWithoutTodosInput `json:"user,omitempty"`
+}
+
+type TodoUpdateWithoutUserDataInput struct {
+	Message *string `json:"message,omitempty"`
+	Done    *bool   `json:"done,omitempty"`
+}
+
+type UserUpdateInput struct {
+	Name  *string                         `json:"name,omitempty"`
+	Todos *TodoUpdateManyWithoutUserInput `json:"todos,omitempty"`
+}
+
+type UserWhereInput struct {
+	ID                *string          `json:"id,omitempty"`
+	IDNot             *string          `json:"id_not,omitempty"`
+	IDIn              []string         `json:"id_in,omitempty"`
+	IDNotIn           []string         `json:"id_not_in,omitempty"`
+	IDLt              *string          `json:"id_lt,omitempty"`
+	IDLte             *string          `json:"id_lte,omitempty"`
+	IDGt              *string          `json:"id_gt,omitempty"`
+	IDGte             *string          `json:"id_gte,omitempty"`
+	IDContains        *string          `json:"id_contains,omitempty"`
+	IDNotContains     *string          `json:"id_not_contains,omitempty"`
+	IDStartsWith      *string          `json:"id_starts_with,omitempty"`
+	IDNotStartsWith   *string          `json:"id_not_starts_with,omitempty"`
+	IDEndsWith        *string          `json:"id_ends_with,omitempty"`
+	IDNotEndsWith     *string          `json:"id_not_ends_with,omitempty"`
+	Name              *string          `json:"name,omitempty"`
+	NameNot           *string          `json:"name_not,omitempty"`
+	NameIn            []string         `json:"name_in,omitempty"`
+	NameNotIn         []string         `json:"name_not_in,omitempty"`
+	NameLt            *string          `json:"name_lt,omitempty"`
+	NameLte           *string          `json:"name_lte,omitempty"`
+	NameGt            *string          `json:"name_gt,omitempty"`
+	NameGte           *string          `json:"name_gte,omitempty"`
+	NameContains      *string          `json:"name_contains,omitempty"`
+	NameNotContains   *string          `json:"name_not_contains,omitempty"`
+	NameStartsWith    *string          `json:"name_starts_with,omitempty"`
+	NameNotStartsWith *string          `json:"name_not_starts_with,omitempty"`
+	NameEndsWith      *string          `json:"name_ends_with,omitempty"`
+	NameNotEndsWith   *string          `json:"name_not_ends_with,omitempty"`
+	TodosEvery        *TodoWhereInput  `json:"todos_every,omitempty"`
+	TodosSome         *TodoWhereInput  `json:"todos_some,omitempty"`
+	TodosNone         *TodoWhereInput  `json:"todos_none,omitempty"`
+	And               []UserWhereInput `json:"AND,omitempty"`
+	Or                []UserWhereInput `json:"OR,omitempty"`
+	Not               []UserWhereInput `json:"NOT,omitempty"`
+}
+
+type UserUpdateWithoutTodosDataInput struct {
+	Name *string `json:"name,omitempty"`
+}
+
+type TodoUpdateManyDataInput struct {
+	Message *string `json:"message,omitempty"`
+	Done    *bool   `json:"done,omitempty"`
+}
+
+type TodoCreateManyWithoutUserInput struct {
+	Create  []TodoCreateWithoutUserInput `json:"create,omitempty"`
+	Connect []TodoWhereUniqueInput       `json:"connect,omitempty"`
+}
+
+type TodoCreateWithoutUserInput struct {
+	Message string `json:"message"`
+	Done    *bool  `json:"done,omitempty"`
 }
 
 type TodoWhereInput struct {
@@ -439,23 +557,45 @@ type TodoWhereInput struct {
 	Not                  []TodoWhereInput `json:"NOT,omitempty"`
 }
 
-type UserUpdateManyMutationInput struct {
-	Name *string `json:"name,omitempty"`
+type UserUpsertWithoutTodosInput struct {
+	Update UserUpdateWithoutTodosDataInput `json:"update"`
+	Create UserCreateWithoutTodosInput     `json:"create"`
 }
 
-type UserCreateOneInput struct {
-	Create  *UserCreateInput      `json:"create,omitempty"`
-	Connect *UserWhereUniqueInput `json:"connect,omitempty"`
-}
-
-type UserCreateInput struct {
-	Name string `json:"name"`
-}
-
-type TodoUpdateInput struct {
-	Message *string                     `json:"message,omitempty"`
-	Done    *bool                       `json:"done,omitempty"`
-	User    *UserUpdateOneRequiredInput `json:"user,omitempty"`
+type TodoScalarWhereInput struct {
+	ID                   *string                `json:"id,omitempty"`
+	IDNot                *string                `json:"id_not,omitempty"`
+	IDIn                 []string               `json:"id_in,omitempty"`
+	IDNotIn              []string               `json:"id_not_in,omitempty"`
+	IDLt                 *string                `json:"id_lt,omitempty"`
+	IDLte                *string                `json:"id_lte,omitempty"`
+	IDGt                 *string                `json:"id_gt,omitempty"`
+	IDGte                *string                `json:"id_gte,omitempty"`
+	IDContains           *string                `json:"id_contains,omitempty"`
+	IDNotContains        *string                `json:"id_not_contains,omitempty"`
+	IDStartsWith         *string                `json:"id_starts_with,omitempty"`
+	IDNotStartsWith      *string                `json:"id_not_starts_with,omitempty"`
+	IDEndsWith           *string                `json:"id_ends_with,omitempty"`
+	IDNotEndsWith        *string                `json:"id_not_ends_with,omitempty"`
+	Message              *string                `json:"message,omitempty"`
+	MessageNot           *string                `json:"message_not,omitempty"`
+	MessageIn            []string               `json:"message_in,omitempty"`
+	MessageNotIn         []string               `json:"message_not_in,omitempty"`
+	MessageLt            *string                `json:"message_lt,omitempty"`
+	MessageLte           *string                `json:"message_lte,omitempty"`
+	MessageGt            *string                `json:"message_gt,omitempty"`
+	MessageGte           *string                `json:"message_gte,omitempty"`
+	MessageContains      *string                `json:"message_contains,omitempty"`
+	MessageNotContains   *string                `json:"message_not_contains,omitempty"`
+	MessageStartsWith    *string                `json:"message_starts_with,omitempty"`
+	MessageNotStartsWith *string                `json:"message_not_starts_with,omitempty"`
+	MessageEndsWith      *string                `json:"message_ends_with,omitempty"`
+	MessageNotEndsWith   *string                `json:"message_not_ends_with,omitempty"`
+	Done                 *bool                  `json:"done,omitempty"`
+	DoneNot              *bool                  `json:"done_not,omitempty"`
+	And                  []TodoScalarWhereInput `json:"AND,omitempty"`
+	Or                   []TodoScalarWhereInput `json:"OR,omitempty"`
+	Not                  []TodoScalarWhereInput `json:"NOT,omitempty"`
 }
 
 type TodoSubscriptionWhereInput struct {
@@ -469,62 +609,201 @@ type TodoSubscriptionWhereInput struct {
 	Not                        []TodoSubscriptionWhereInput `json:"NOT,omitempty"`
 }
 
-type UserUpdateInput struct {
-	Name *string `json:"name,omitempty"`
+type TodoUpdateWithWhereUniqueWithoutUserInput struct {
+	Where TodoWhereUniqueInput           `json:"where"`
+	Data  TodoUpdateWithoutUserDataInput `json:"data"`
 }
 
-type UserWhereInput struct {
-	ID                *string          `json:"id,omitempty"`
-	IDNot             *string          `json:"id_not,omitempty"`
-	IDIn              []string         `json:"id_in,omitempty"`
-	IDNotIn           []string         `json:"id_not_in,omitempty"`
-	IDLt              *string          `json:"id_lt,omitempty"`
-	IDLte             *string          `json:"id_lte,omitempty"`
-	IDGt              *string          `json:"id_gt,omitempty"`
-	IDGte             *string          `json:"id_gte,omitempty"`
-	IDContains        *string          `json:"id_contains,omitempty"`
-	IDNotContains     *string          `json:"id_not_contains,omitempty"`
-	IDStartsWith      *string          `json:"id_starts_with,omitempty"`
-	IDNotStartsWith   *string          `json:"id_not_starts_with,omitempty"`
-	IDEndsWith        *string          `json:"id_ends_with,omitempty"`
-	IDNotEndsWith     *string          `json:"id_not_ends_with,omitempty"`
-	Name              *string          `json:"name,omitempty"`
-	NameNot           *string          `json:"name_not,omitempty"`
-	NameIn            []string         `json:"name_in,omitempty"`
-	NameNotIn         []string         `json:"name_not_in,omitempty"`
-	NameLt            *string          `json:"name_lt,omitempty"`
-	NameLte           *string          `json:"name_lte,omitempty"`
-	NameGt            *string          `json:"name_gt,omitempty"`
-	NameGte           *string          `json:"name_gte,omitempty"`
-	NameContains      *string          `json:"name_contains,omitempty"`
-	NameNotContains   *string          `json:"name_not_contains,omitempty"`
-	NameStartsWith    *string          `json:"name_starts_with,omitempty"`
-	NameNotStartsWith *string          `json:"name_not_starts_with,omitempty"`
-	NameEndsWith      *string          `json:"name_ends_with,omitempty"`
-	NameNotEndsWith   *string          `json:"name_not_ends_with,omitempty"`
-	And               []UserWhereInput `json:"AND,omitempty"`
-	Or                []UserWhereInput `json:"OR,omitempty"`
-	Not               []UserWhereInput `json:"NOT,omitempty"`
+type TodoUpsertWithWhereUniqueWithoutUserInput struct {
+	Where  TodoWhereUniqueInput           `json:"where"`
+	Update TodoUpdateWithoutUserDataInput `json:"update"`
+	Create TodoCreateWithoutUserInput     `json:"create"`
 }
 
-type UserUpdateDataInput struct {
-	Name *string `json:"name,omitempty"`
+type UserPreviousValuesExec struct {
+	exec *prisma.Exec
 }
 
-type UserUpsertNestedInput struct {
-	Update UserUpdateDataInput `json:"update"`
-	Create UserCreateInput     `json:"create"`
+func (instance UserPreviousValuesExec) Exec(ctx context.Context) (*UserPreviousValues, error) {
+	var v UserPreviousValues
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
 }
 
-type UserSubscriptionWhereInput struct {
-	MutationIn                 []MutationType               `json:"mutation_in,omitempty"`
-	UpdatedFieldsContains      *string                      `json:"updatedFields_contains,omitempty"`
-	UpdatedFieldsContainsEvery []string                     `json:"updatedFields_contains_every,omitempty"`
-	UpdatedFieldsContainsSome  []string                     `json:"updatedFields_contains_some,omitempty"`
-	Node                       *UserWhereInput              `json:"node,omitempty"`
-	And                        []UserSubscriptionWhereInput `json:"AND,omitempty"`
-	Or                         []UserSubscriptionWhereInput `json:"OR,omitempty"`
-	Not                        []UserSubscriptionWhereInput `json:"NOT,omitempty"`
+func (instance UserPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type UserPreviousValuesExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance UserPreviousValuesExecArray) Exec(ctx context.Context) ([]UserPreviousValues, error) {
+	var v []UserPreviousValues
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+type UserPreviousValues struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type PageInfoExec struct {
+	exec *prisma.Exec
+}
+
+func (instance PageInfoExec) Exec(ctx context.Context) (*PageInfo, error) {
+	var v PageInfo
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance PageInfoExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type PageInfoExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance PageInfoExecArray) Exec(ctx context.Context) ([]PageInfo, error) {
+	var v []PageInfo
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+type PageInfo struct {
+	HasNextPage     bool    `json:"hasNextPage"`
+	HasPreviousPage bool    `json:"hasPreviousPage"`
+	StartCursor     *string `json:"startCursor,omitempty"`
+	EndCursor       *string `json:"endCursor,omitempty"`
+}
+
+type UserExec struct {
+	exec *prisma.Exec
+}
+
+type TodosParamsExec struct {
+	Where   *TodoWhereInput
+	OrderBy *TodoOrderByInput
+	Skip    *int32
+	After   *string
+	Before  *string
+	First   *int32
+	Last    *int32
+}
+
+func (instance *UserExec) Todos(params *TodosParamsExec) *TodoExecArray {
+	var wparams *prisma.WhereParams
+	if params != nil {
+		wparams = &prisma.WhereParams{
+			Where:   params.Where,
+			OrderBy: (*string)(params.OrderBy),
+			Skip:    params.Skip,
+			After:   params.After,
+			Before:  params.Before,
+			First:   params.First,
+			Last:    params.Last,
+		}
+	}
+
+	ret := instance.exec.Client.GetMany(
+		instance.exec,
+		wparams,
+		[3]string{"TodoWhereInput", "TodoOrderByInput", "Todo"},
+		"todos",
+		[]string{"id", "message", "done"})
+
+	return &TodoExecArray{ret}
+}
+
+func (instance UserExec) Exec(ctx context.Context) (*User, error) {
+	var v User
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance UserExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type UserExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance UserExecArray) Exec(ctx context.Context) ([]User, error) {
+	var v []User
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+type User struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type TodoEdgeExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *TodoEdgeExec) Node() *TodoExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "Todo"},
+		"node",
+		[]string{"id", "message", "done"})
+
+	return &TodoExec{ret}
+}
+
+func (instance TodoEdgeExec) Exec(ctx context.Context) (*TodoEdge, error) {
+	var v TodoEdge
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance TodoEdgeExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type TodoEdgeExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance TodoEdgeExecArray) Exec(ctx context.Context) ([]TodoEdge, error) {
+	var v []TodoEdge
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+type TodoEdge struct {
+	Cursor string `json:"cursor"`
 }
 
 type TodoSubscriptionPayloadExec struct {
@@ -582,329 +861,6 @@ func (instance TodoSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]To
 type TodoSubscriptionPayload struct {
 	Mutation      MutationType `json:"mutation"`
 	UpdatedFields []string     `json:"updatedFields,omitempty"`
-}
-
-type UserPreviousValuesExec struct {
-	exec *prisma.Exec
-}
-
-func (instance UserPreviousValuesExec) Exec(ctx context.Context) (*UserPreviousValues, error) {
-	var v UserPreviousValues
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance UserPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type UserPreviousValuesExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance UserPreviousValuesExecArray) Exec(ctx context.Context) ([]UserPreviousValues, error) {
-	var v []UserPreviousValues
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type UserPreviousValues struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-}
-
-type UserConnectionExec struct {
-	exec *prisma.Exec
-}
-
-func (instance *UserConnectionExec) PageInfo() *PageInfoExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "PageInfo"},
-		"pageInfo",
-		[]string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"})
-
-	return &PageInfoExec{ret}
-}
-
-func (instance *UserConnectionExec) Edges() *UserEdgeExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "UserEdge"},
-		"edges",
-		[]string{"cursor"})
-
-	return &UserEdgeExec{ret}
-}
-
-func (instance *UserConnectionExec) Aggregate(ctx context.Context) (Aggregate, error) {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "AggregateUser"},
-		"aggregate",
-		[]string{"count"})
-
-	var v Aggregate
-	_, err := ret.Exec(ctx, &v)
-	return v, err
-}
-
-func (instance UserConnectionExec) Exec(ctx context.Context) (*UserConnection, error) {
-	var v UserConnection
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance UserConnectionExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type UserConnectionExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance UserConnectionExecArray) Exec(ctx context.Context) ([]UserConnection, error) {
-	var v []UserConnection
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type UserConnection struct {
-}
-
-type TodoPreviousValuesExec struct {
-	exec *prisma.Exec
-}
-
-func (instance TodoPreviousValuesExec) Exec(ctx context.Context) (*TodoPreviousValues, error) {
-	var v TodoPreviousValues
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance TodoPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type TodoPreviousValuesExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance TodoPreviousValuesExecArray) Exec(ctx context.Context) ([]TodoPreviousValues, error) {
-	var v []TodoPreviousValues
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type TodoPreviousValues struct {
-	ID      string `json:"id"`
-	Message string `json:"message"`
-	Done    bool   `json:"done"`
-}
-
-type TodoExec struct {
-	exec *prisma.Exec
-}
-
-func (instance *TodoExec) User() *UserExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "User"},
-		"user",
-		[]string{"id", "name"})
-
-	return &UserExec{ret}
-}
-
-func (instance TodoExec) Exec(ctx context.Context) (*Todo, error) {
-	var v Todo
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance TodoExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type TodoExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance TodoExecArray) Exec(ctx context.Context) ([]Todo, error) {
-	var v []Todo
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type Todo struct {
-	ID      string `json:"id"`
-	Message string `json:"message"`
-	Done    bool   `json:"done"`
-}
-
-type UserExec struct {
-	exec *prisma.Exec
-}
-
-func (instance UserExec) Exec(ctx context.Context) (*User, error) {
-	var v User
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance UserExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type UserExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance UserExecArray) Exec(ctx context.Context) ([]User, error) {
-	var v []User
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-}
-
-type UserSubscriptionPayloadExec struct {
-	exec *prisma.Exec
-}
-
-func (instance *UserSubscriptionPayloadExec) Node() *UserExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "User"},
-		"node",
-		[]string{"id", "name"})
-
-	return &UserExec{ret}
-}
-
-func (instance *UserSubscriptionPayloadExec) PreviousValues() *UserPreviousValuesExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "UserPreviousValues"},
-		"previousValues",
-		[]string{"id", "name"})
-
-	return &UserPreviousValuesExec{ret}
-}
-
-func (instance UserSubscriptionPayloadExec) Exec(ctx context.Context) (*UserSubscriptionPayload, error) {
-	var v UserSubscriptionPayload
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance UserSubscriptionPayloadExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type UserSubscriptionPayloadExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance UserSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]UserSubscriptionPayload, error) {
-	var v []UserSubscriptionPayload
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type UserSubscriptionPayload struct {
-	Mutation      MutationType `json:"mutation"`
-	UpdatedFields []string     `json:"updatedFields,omitempty"`
-}
-
-type UserEdgeExec struct {
-	exec *prisma.Exec
-}
-
-func (instance *UserEdgeExec) Node() *UserExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "User"},
-		"node",
-		[]string{"id", "name"})
-
-	return &UserExec{ret}
-}
-
-func (instance UserEdgeExec) Exec(ctx context.Context) (*UserEdge, error) {
-	var v UserEdge
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance UserEdgeExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type UserEdgeExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance UserEdgeExecArray) Exec(ctx context.Context) ([]UserEdge, error) {
-	var v []UserEdge
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type UserEdge struct {
-	Cursor string `json:"cursor"`
 }
 
 type TodoConnectionExec struct {
@@ -975,60 +931,23 @@ func (instance TodoConnectionExecArray) Exec(ctx context.Context) ([]TodoConnect
 type TodoConnection struct {
 }
 
-type PageInfoExec struct {
+type TodoExec struct {
 	exec *prisma.Exec
 }
 
-func (instance PageInfoExec) Exec(ctx context.Context) (*PageInfo, error) {
-	var v PageInfo
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance PageInfoExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type PageInfoExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance PageInfoExecArray) Exec(ctx context.Context) ([]PageInfo, error) {
-	var v []PageInfo
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type PageInfo struct {
-	HasNextPage     bool    `json:"hasNextPage"`
-	HasPreviousPage bool    `json:"hasPreviousPage"`
-	StartCursor     *string `json:"startCursor,omitempty"`
-	EndCursor       *string `json:"endCursor,omitempty"`
-}
-
-type TodoEdgeExec struct {
-	exec *prisma.Exec
-}
-
-func (instance *TodoEdgeExec) Node() *TodoExec {
+func (instance *TodoExec) User() *UserExec {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
-		[2]string{"", "Todo"},
-		"node",
-		[]string{"id", "message", "done"})
+		[2]string{"", "User"},
+		"user",
+		[]string{"id", "name"})
 
-	return &TodoExec{ret}
+	return &UserExec{ret}
 }
 
-func (instance TodoEdgeExec) Exec(ctx context.Context) (*TodoEdge, error) {
-	var v TodoEdge
+func (instance TodoExec) Exec(ctx context.Context) (*Todo, error) {
+	var v Todo
 	ok, err := instance.exec.Exec(ctx, &v)
 	if err != nil {
 		return nil, err
@@ -1039,20 +958,228 @@ func (instance TodoEdgeExec) Exec(ctx context.Context) (*TodoEdge, error) {
 	return &v, nil
 }
 
-func (instance TodoEdgeExec) Exists(ctx context.Context) (bool, error) {
+func (instance TodoExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type TodoEdgeExecArray struct {
+type TodoExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance TodoEdgeExecArray) Exec(ctx context.Context) ([]TodoEdge, error) {
-	var v []TodoEdge
+func (instance TodoExecArray) Exec(ctx context.Context) ([]Todo, error) {
+	var v []Todo
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type TodoEdge struct {
+type Todo struct {
+	ID      string `json:"id"`
+	Message string `json:"message"`
+	Done    bool   `json:"done"`
+}
+
+type TodoPreviousValuesExec struct {
+	exec *prisma.Exec
+}
+
+func (instance TodoPreviousValuesExec) Exec(ctx context.Context) (*TodoPreviousValues, error) {
+	var v TodoPreviousValues
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance TodoPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type TodoPreviousValuesExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance TodoPreviousValuesExecArray) Exec(ctx context.Context) ([]TodoPreviousValues, error) {
+	var v []TodoPreviousValues
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+type TodoPreviousValues struct {
+	ID      string `json:"id"`
+	Message string `json:"message"`
+	Done    bool   `json:"done"`
+}
+
+type UserEdgeExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *UserEdgeExec) Node() *UserExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "User"},
+		"node",
+		[]string{"id", "name"})
+
+	return &UserExec{ret}
+}
+
+func (instance UserEdgeExec) Exec(ctx context.Context) (*UserEdge, error) {
+	var v UserEdge
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance UserEdgeExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type UserEdgeExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance UserEdgeExecArray) Exec(ctx context.Context) ([]UserEdge, error) {
+	var v []UserEdge
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+type UserEdge struct {
 	Cursor string `json:"cursor"`
+}
+
+type UserSubscriptionPayloadExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *UserSubscriptionPayloadExec) Node() *UserExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "User"},
+		"node",
+		[]string{"id", "name"})
+
+	return &UserExec{ret}
+}
+
+func (instance *UserSubscriptionPayloadExec) PreviousValues() *UserPreviousValuesExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "UserPreviousValues"},
+		"previousValues",
+		[]string{"id", "name"})
+
+	return &UserPreviousValuesExec{ret}
+}
+
+func (instance UserSubscriptionPayloadExec) Exec(ctx context.Context) (*UserSubscriptionPayload, error) {
+	var v UserSubscriptionPayload
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance UserSubscriptionPayloadExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type UserSubscriptionPayloadExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance UserSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]UserSubscriptionPayload, error) {
+	var v []UserSubscriptionPayload
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+type UserSubscriptionPayload struct {
+	Mutation      MutationType `json:"mutation"`
+	UpdatedFields []string     `json:"updatedFields,omitempty"`
+}
+
+type UserConnectionExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *UserConnectionExec) PageInfo() *PageInfoExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "PageInfo"},
+		"pageInfo",
+		[]string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"})
+
+	return &PageInfoExec{ret}
+}
+
+func (instance *UserConnectionExec) Edges() *UserEdgeExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "UserEdge"},
+		"edges",
+		[]string{"cursor"})
+
+	return &UserEdgeExec{ret}
+}
+
+func (instance *UserConnectionExec) Aggregate(ctx context.Context) (Aggregate, error) {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "AggregateUser"},
+		"aggregate",
+		[]string{"count"})
+
+	var v Aggregate
+	_, err := ret.Exec(ctx, &v)
+	return v, err
+}
+
+func (instance UserConnectionExec) Exec(ctx context.Context) (*UserConnection, error) {
+	var v UserConnection
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance UserConnectionExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type UserConnectionExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance UserConnectionExecArray) Exec(ctx context.Context) ([]UserConnection, error) {
+	var v []UserConnection
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+type UserConnection struct {
 }
